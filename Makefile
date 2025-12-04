@@ -6,10 +6,11 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/29 20:38:07 by tozaki            #+#    #+#              #
-#    Updated: 2025/12/04 20:42:44 by tozaki           ###   ########.fr        #
+#    Updated: 2025/12/04 21:02:26 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC		=	cc
 NAME	=	so_long
 CFLAGS	=	-Wall -Werror -Wextra # -fsanitize=address -g
 LIB_DIR	=	minilibx-linux
@@ -18,15 +19,14 @@ LIBS	=	-lmlx -lXext -lX11
 SRCS_DIR	= ./srcs/
 OBJS_DIR	= ./objs/
 
-SRCS_NAME	=	load_map.c	\
+SRCS_NAME	=	so_long.c	\
+			load_map.c \
 			launch_window.c \
 			close_mlx.c	\
-			so_long.c \
 			draw_window.c \
 			celltype.c \
-			validate_map \
-			celltype.c \
-			deal_key.c
+			deal_key.c \
+			validate_map.c
 
 SRCS	=	$(addprefix $(SRCS_DIR), $(SRCS_NAME))
 OBJS	=	$(addprefix $(OBJS_DIR), $(SRCS_NAME:.c=.o))
@@ -37,7 +37,7 @@ INCLUDES	=	-I minilibx-linux -I libft/includes -I includes
 all: $(NAME)
 
 $(NAME): $(OBJS) libft/libft.a mlx
-	$(CC)  $(CFLAGS) $(OBJS) -L $(LIB_DIR) $(LIBS) -o $(NAME) libft/libft.a
+	$(CC) $(CFLAGS) $(OBJS) libft/libft.a -L $(LIB_DIR) $(LIBS) -o $(NAME)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	mkdir -p $(dir $@)
