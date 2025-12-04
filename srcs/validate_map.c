@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:51:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/04 20:36:13 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/04 22:06:42 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * - 外縁はすべて１になっているか
  * - P,Gが複数ないか
  * - マップに知らない文字がないか
- * - 
+ * - クリアできる形か
  */
 
 
@@ -50,22 +50,22 @@ int	is_surrounded(char **map)
 	int	colmax;
 
 	rowmax = 0;
-	while (map[rowmax][0])
+	while (map[rowmax])
 		rowmax++;
 	colmax = 0;
 	while (map[0][colmax])
 		colmax++;
 	col = 0;
-	while (map[0][col])
+	while (col < colmax)
 	{
-		if (map[0][col] != '1' || map[rowmax][col] != '1')
+		if (map[0][col] != '1' || map[rowmax - 1][col] != '1')
 			return (0);
 		col++;
 	}
 	row = 0;
-	while (map[row][0])
+	while (row < rowmax)
 	{
-		if (map[row][0] != '1' || map[row][colmax] != '1')
+		if (map[row][0] != '1' || map[row][colmax - 1] != '1')
 			return (0);
 		row++;
 	}
@@ -103,6 +103,7 @@ static int	is_instr(char c, char *str)
 	{
 		if (str[i] == c)
 			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -120,10 +121,15 @@ int	is_defined_char(char **map)
 		{
 			if (!is_instr(map[row][col], "10CPE"))
 				return (0);
+			col++;
 		}
+		row++;
 	}
 	return (1);
 }
+
+int	flood_fill()
+{}
 
 int	validate_map(char **map)
 {

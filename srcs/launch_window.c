@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:20:18 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/04 20:34:09 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/04 21:45:55 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int	launch_window(t_game *game, char *filepath)
 	if (!game->map)
 		return (FAIL);
 	if (validate_map(game->map) == FAIL)
-		return (FAIL);
+		return (free_map(game->map), FAIL);
 	if (load_imgs(game) == FAIL)
-		return (FAIL);
+		return (free_map(game->map), FAIL);
 	set_window_size(game);
 	set_player_address(game);
 	set_number_of_collectible(game);
