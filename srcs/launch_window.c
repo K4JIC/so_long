@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:20:18 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/04 21:45:55 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/04 22:13:20 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ int	launch_window(t_game *game, char *filepath)
 	game->win = mlx_new_window(game->mlx, game->win_width, game->win_height, \
 							game->title);
 	if (!game->win)
-		return (FAIL);
+		return (free_map(game->map), FAIL);
 	if (draw_window(game) == FAIL)
-		return (FAIL);
+		return (mlx_destroy_window(game->mlx, game->win), free_map(game->map), \
+		FAIL);
 	return (SUCCESS);
 }
