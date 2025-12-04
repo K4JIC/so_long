@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   celltype.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/29 20:02:06 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/04 20:34:28 by tozaki           ###   ########.fr       */
+/*   Created: 2025/12/04 18:31:16 by tozaki            #+#    #+#             */
+/*   Updated: 2025/12/04 18:38:08 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "mlx.h"
 #include "so_long.h"
-#include "libft.h"
 
-int	main(int argc, char **argv)
+static int	is_cell(t_game *game, t_position p, char c)
 {
-	t_game	game;
-
-	if (argc != 2)
+	if (game->map[p.row][p.col] == c)
 		return (1);
-	ft_bzero(&game, sizeof(game));
-	game.mlx = mlx_init();
-	game.title = "test";
-	if (launch_window(&game, argv[1]) == FAIL)
-		return (FAIL);
-	mlx_key_hook(game.win, deal_key, &game);
-	game.end_loop = 0;
-	mlx_loop(game.mlx);
-	close_mlx(&game);
-	return(0);
+	return (0);
+}
+
+int	is_accessible(t_game *game, t_position p)
+{
+	return (!is_cell(game, p, '1'));
+}
+
+int	is_collectible(t_game *game, t_position p)
+{
+	return (is_cell(game, p, 'C'));
+}
+
+int	is_goal(t_game *game, t_position p)
+{
+	return (is_cell(game, p, 'E'));
 }

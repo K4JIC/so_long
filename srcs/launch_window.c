@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:20:18 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/03 20:01:54 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/04 20:34:09 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 #include "so_long.h"
 
-int	load_imgs(t_game *game)
+static int	load_imgs(t_game *game)
 {
 	int	w;
 	int	h;
@@ -42,7 +42,7 @@ int	load_imgs(t_game *game)
 	return (SUCCESS);
 }
 
-void	set_window_size(t_game *game)
+static void	set_window_size(t_game *game)
 {
 	int	i;
 
@@ -55,28 +55,7 @@ void	set_window_size(t_game *game)
 	}
 }
 
-int	put_imgs(t_game *ga, char c, int x, int y)
-{
-	int	res;
-
-	res = 0;
-	if (c == '0')
-		res = mlx_put_image_to_window(ga->mlx, ga->win, ga->imgs.floor, x, y);
-	else if (c == '1')
-		res = mlx_put_image_to_window(ga->mlx, ga->win, ga->imgs.wall, x, y);
-	else if (c == 'C')
-		res = mlx_put_image_to_window(ga->mlx, ga->win, ga->imgs.collectible, \
-			x, y);
-	else if (c == 'P')
-		res = mlx_put_image_to_window(ga->mlx, ga->win, ga->imgs.player, x, y);
-	else if (c == 'E')
-		res = mlx_put_image_to_window(ga->mlx, ga->win, ga->imgs.goal, x, y);
-	if (!res)
-		return (FAIL);
-	return (SUCCESS);
-}
-
-int	fill_window(t_game *game)
+void	set_player_address(t_game *game)
 {
 	int	row;
 	int	col;
@@ -87,14 +66,38 @@ int	fill_window(t_game *game)
 		col = 0;
 		while (game->map[row][col])
 		{
-			// if (!put_imgs(game, game->map[row][col], col * ISIZE, row * ISIZE))
-			// 	return (FAIL);
-			put_imgs(game, game->map[row][col], col * ISIZE, row * ISIZE);
+			if (game->map[row][col] == 'P')
+			{
+				game->player.row = row;
+				game->player.col = col;
+				return ;
+			}
 			col++;
 		}
 		row++;
 	}
-	return (SUCCESS);
+}
+
+void	set_number_of_collectible(t_game *game)
+{
+	int	count;
+	int	row;
+	int	col;
+
+	count = 0;
+	row = 0;
+	while (game->map[row])
+	{
+		col = 0;
+		while (game->map[row][col])
+		{
+			if (game->map[row][col] == 'C')
+				count++;
+			col++;
+		}
+		row++;
+	}
+	game->collectible_count = count;
 }
 
 int	launch_window(t_game *game, char *filepath)
@@ -102,14 +105,20 @@ int	launch_window(t_game *game, char *filepath)
 	game->map = load_map(filepath);
 	if (!game->map)
 		return (FAIL);
+	if (validate_map(game->map) == FAIL)
+		return (FAIL);
 	if (load_imgs(game) == FAIL)
 		return (FAIL);
 	set_window_size(game);
+	set_player_address(game);
+	set_number_of_collectible(game);
+	ft_printf("player is at (%d, %d)\n", game->player.col, game->player.row);
+	ft_printf("there is %d collectible objects\n", game->collectible_count);
 	game->win = mlx_new_window(game->mlx, game->win_width, game->win_height, \
 							game->title);
 	if (!game->win)
 		return (FAIL);
-	if (fill_window(game) == FAIL)
+	if (draw_window(game) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
 }

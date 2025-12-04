@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:27:37 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/03 15:45:45 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/04 16:23:36 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	**load_map(char *filepath)
 	char	*raw_line;
 	char	*trimmed_line;
 	t_list	*head;
+	t_list	*new;
 
 	head = NULL;
 	fd = open(filepath, O_RDONLY);
@@ -63,7 +64,10 @@ char	**load_map(char *filepath)
 			close(fd);
 			return (NULL);
 		}
-		ft_lstadd_back(&head, ft_lstnew(trimmed_line));
+		new = ft_lstnew(trimmed_line);
+		if (!new)
+			return (NULL);
+		ft_lstadd_back(&head, new);
 	}
 	close(fd);
 	return (lst_to_arr(head));
@@ -73,6 +77,8 @@ void	free_map(char **map)
 {
 	int	i;
 
+	if (!map)
+		return ;
 	i = 0;
 	while (map[i])
 	{
