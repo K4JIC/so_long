@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:51:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 22:01:17 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 22:06:27 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int	is_surrounded(char **map)
 	rowmax = 0;
 	while (map[rowmax])
 		rowmax++;
-	colmax = 0;
-	while (map[0][colmax])
-		colmax++;
+	colmax = ft_strlen(map[0]);
 	col = 0;
 	while (col < colmax)
 	{
