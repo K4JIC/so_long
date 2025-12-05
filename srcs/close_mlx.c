@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 18:02:50 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/04 16:47:00 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 18:41:06 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void	close_mlx(t_game *game)
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free_map(game->map);
-	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 21:08:58 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 16:41:13 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 17:41:56 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@ int	measure_filesize(char *filepath)
 
 static int	has_continuous_newline(char *str)
 {
-	int	in_newline;
+	int	prev_char_is_newline;
 	int	i;
 
-	in_newline = 0;
+	prev_char_is_newline = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (in_newline == 1 && str[i] == '\n')
+		if (prev_char_is_newline == 1 && str[i] == '\n')
 			return (1);
-		in_newline = 0;
+		prev_char_is_newline = 0;
 		if (str[i] == '\n')
-			in_newline = 1;
+			prev_char_is_newline = 1;
 		i++;
 	}
 	return (0);
@@ -62,11 +62,11 @@ int	is_valid_use_of_newline(char *filepath)
 	bytesize = measure_filesize(filepath);
 	if (bytesize == -1)
 		return (-1);
-	buf = malloc(bytesize);
+	buf = malloc(bytesize + 1);
 	if (!buf)
 		return (-1);
 	fd = open(filepath, O_RDONLY);
-	res = read(fd, buf, BUFFER_SIZE);
+	res = read(fd, buf, bytesize);
 	if (res == -1)
 		return (free(buf), -1);
 	close(fd);
@@ -82,16 +82,9 @@ int	is_valid_filename(char *filepath)
 
 	slen = ft_strlen(filepath);
 	if (ft_strncmp(filepath + slen - 4, ".ber", 4) != 0)
-	{
-		ft_printf("The file name must be in the format \
-			<filepath/filename>.ber\n");
 		return (0);
-	}
 	if (slen == 4)
-	{
-		
 		return (0);
-	}
 	return (1);
 }
 

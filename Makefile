@@ -6,7 +6,7 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/29 20:38:07 by tozaki            #+#    #+#              #
-#    Updated: 2025/12/05 16:40:38 by tozaki           ###   ########.fr        #
+#    Updated: 2025/12/05 19:13:38 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,19 +19,21 @@ LIBS	=	-lmlx -lXext -lX11
 SRCS_DIR	= ./srcs/
 OBJS_DIR	= ./objs/
 
-SRCS_NAME	=	so_long.c	\
-			load_map.c \
-			launch_window.c \
-			close_mlx.c	\
-			draw_window.c \
-			celltype.c \
-			deal_key.c \
-			validate_file.c \
-			validate_map.c
+SRCS_NAME	=	so_long.c				\
+				load_map.c				\
+				launch_window.c			\
+				close_mlx.c				\
+				draw_window.c			\
+				celltype.c				\
+				move_cells.c			\
+				deal_key.c				\
+				validate_file.c			\
+				validate_map.c			\
+				validate_map_utils.c	\
+				validate_map_flood_fill.c
 
 SRCS	=	$(addprefix $(SRCS_DIR), $(SRCS_NAME))
 OBJS	=	$(addprefix $(OBJS_DIR), $(SRCS_NAME:.c=.o))
-# OBJS	=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 INCLUDES	=	-I minilibx-linux -I libft/includes -I includes
 
 .PHONY: all

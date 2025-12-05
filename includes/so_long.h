@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:14:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 16:40:22 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 19:12:46 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,24 +74,36 @@ char	**load_map(char *filepath);
 void	free_map(char **map);
 
 /*launch_window*/
-int	draw_window(t_game *game);
-int	launch_window(t_game *game, char *filepath);
+int		draw_window(t_game *game);
+int		launch_window(t_game *game, char *filepath);
 void	set_player_address(t_game *game);
 
 /*celltype*/
-int	is_accessible(t_game *game, t_position p);
-int	is_collectible(t_game *game, t_position p);
-int	is_goal(t_game *game, t_position p);
+int		is_accessible(t_game *game, t_position p);
+int		is_collectible(t_game *game, t_position p);
+int		is_goal(t_game *game, t_position p);
 
+/*move_cells*/
+int		swap_cell(t_game *game, t_position p1, t_position p2);
+int		move_player(t_game *game, int row, int col);
 
 /*deal_key*/
-int	deal_key(int key, t_game *game);
+int		deal_key(int key, t_game *game);
 
 /*validate_file*/
-int	validate_file(char *filepath);
+int		validate_file(char *filepath);
+int		measure_filesize(char *filepath);
 
 /*validate_map*/
-int	validate_map(t_game *game);
+int		validate_map(t_game *game);
+/*validate_map_utils*/
+int		is_rectangular(char **map);
+int		is_surrounded(char **map);
+int		count_symbols(char **map, char c);
+int		is_defined_char(char **map);
+/*validate_map_flood_fill*/
+int		flood_fill(char **map, int row, int col);
+void	clean_flood(char **map);
 
 /*close_window*/
 void	close_mlx(t_game *game);
