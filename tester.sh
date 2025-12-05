@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in ./testfile/*; do
+for file in ./testfile/* ./testfile/.* ; do
     if [ -f "$file" ]; then
         echo "./so_long $file"
         valgrind --leak-check=full --show-leak-kinds=all -q ./so_long "$file"

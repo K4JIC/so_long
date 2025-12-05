@@ -6,7 +6,7 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/29 20:38:07 by tozaki            #+#    #+#              #
-#    Updated: 2025/12/05 19:29:13 by tozaki           ###   ########.fr        #
+#    Updated: 2025/12/05 21:22:18 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS_NAME	=	so_long.c				\
 				draw_window.c			\
 				celltype.c				\
 				move_cells.c			\
-				deal_key.c				\
+				deal_hook.c				\
 				validate_file.c			\
 				validate_file_utils.c	\
 				validate_map.c			\

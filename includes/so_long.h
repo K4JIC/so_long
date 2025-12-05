@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:14:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 19:57:39 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 21:38:50 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <X11/keysym.h>
+# include <X11/X.h>
 
 # define FLOOR "imgs/cave.xpm"
 # define WALL "imgs/wall.xpm"
@@ -37,6 +38,8 @@
 # define FAILED_TO_OPEN -1
 # define EMPTY_FILE -2
 # define FAILED_TO_READ -3
+
+# define CROSS_BUTTON_MASK 0
 
 typedef struct s_imgs
 {
@@ -63,6 +66,7 @@ typedef struct s_game
 	char		**map;
 	t_imgs		imgs;
 	t_position	player;
+	int			move_count;
 	int			collectible_count;
 }			t_game;
 
@@ -84,8 +88,9 @@ int		is_goal(t_game *game, t_position p);
 int		swap_cell(t_game *game, t_position p1, t_position p2);
 int		move_player(t_game *game, int row, int col);
 
-/*deal_key*/
+/*deal_hook*/
 int		deal_keys(int key, t_game *game);
+int 	deal_button(t_game *game);
 
 /*validate_file*/
 int		validate_file(char *filepath);
