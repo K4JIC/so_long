@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:14:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/04 20:33:03 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 13:05:59 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	free_map(char **map);
 /*launch_window*/
 int	draw_window(t_game *game);
 int	launch_window(t_game *game, char *filepath);
+void	set_player_address(t_game *game);
 
 /*celltype*/
 int	is_accessible(t_game *game, t_position p);
@@ -87,7 +88,7 @@ int	is_goal(t_game *game, t_position p);
 int	deal_key(int key, t_game *game);
 
 /*validate_map*/
-int	validate_map(char **map);
+int	validate_map(t_game *game);
 
 /*close_window*/
 void	close_mlx(t_game *game);

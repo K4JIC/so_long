@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:51:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/04 22:06:42 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 13:04:21 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,20 +128,58 @@ int	is_defined_char(char **map)
 	return (1);
 }
 
-int	flood_fill()
-{}
-
-int	validate_map(char **map)
+int	flood_fill(char **map, int row, int col)
 {
-	if (!is_rectangle(map))
+	if (map[row][col] == '1' || map[row][col] < 0)
+		return (FAIL);
+	if (map[row][col] == 'E')
+		return (SUCCESS);
+	map[row][col] *= -1;
+	if (flood_fill(map, row + 1, col) == SUCCESS)
+		return (SUCCESS);
+	if (flood_fill(map, row, col + 1) == SUCCESS)
+		return (SUCCESS);
+	if (flood_fill(map, row - 1, col) == SUCCESS)
+		return (SUCCESS);
+	if (flood_fill(map, row, col - 1) == SUCCESS)
+		return (SUCCESS);
+	return (FAIL);
+}
+
+void	clean_flood(char **map)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	while (map[row])
+	{
+		col = 0;
+		while (map[row][col])
+		{
+			if (map[row][col] < 0)
+				map[row][col] *= -1;
+			col++;
+		}
+		row++;
+	}
+}
+
+int	validate_map(t_game *game)
+{
+	if (!is_rectangle(game->map))
 		return ((void)ft_printf("the map must be rectangle\n"), FAIL);
-	if (!is_surrounded(map))
+	if (!is_surrounded(game->map))
 		return ((void)ft_printf("the map must be surrounded by '1'\n"), FAIL);
-	if (!is_defined_char(map))
+	if (!is_defined_char(game->map))
 		return ((void)ft_printf("contains undefined character\n"), FAIL);
-	if (count_symbols(map, 'P') != 1)
+	if (count_symbols(game->map, 'P') != 1)
 		return ((void)ft_printf("must contain only one 'P' character\n"), FAIL);
-	if (count_symbols(map, 'E') != 1)
+	if (count_symbols(game->map, 'E') != 1)
 		return ((void)ft_printf("must contain only one 'E' character\n"), FAIL);
+	set_player_address(game);
+	if (flood_fill(game->map, game->player.row, game->player.col) != SUCCESS)
+		return ((void)ft_printf("cannot clear\n"), FAIL);
+	clean_flood(game->map);
 	return (SUCCESS);
 }
