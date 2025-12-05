@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:20:18 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 13:05:21 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 16:39:55 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	set_number_of_collectible(t_game *game)
 
 int	launch_window(t_game *game, char *filepath)
 {
+	if (validate_file(filepath) == FAIL)
+		return (FAIL);
 	game->map = load_map(filepath);
 	if (!game->map)
 		return (FAIL);

@@ -6,7 +6,7 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/29 20:38:07 by tozaki            #+#    #+#              #
-#    Updated: 2025/12/04 21:02:26 by tozaki           ###   ########.fr        #
+#    Updated: 2025/12/05 16:40:38 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS_NAME	=	so_long.c	\
 			draw_window.c \
 			celltype.c \
 			deal_key.c \
+			validate_file.c \
 			validate_map.c
 
 SRCS	=	$(addprefix $(SRCS_DIR), $(SRCS_NAME))

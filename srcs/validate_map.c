@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:51:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 13:04:21 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 16:07:01 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@
  * - クリアできる形か
  */
 
-
-int	is_rectangle(char **map)
+int	is_rectangular(char **map)
 {
 	int	row;
 	int	col;
 	int	prev_col;
 
 	prev_col = 0;
-	row = 0;
-	while (map[row + 1])
+	row = 1;
+	while (map[row])
 	{
 		col = 0;
 		while (map[row][col])
@@ -167,19 +166,22 @@ void	clean_flood(char **map)
 
 int	validate_map(t_game *game)
 {
-	if (!is_rectangle(game->map))
-		return ((void)ft_printf("the map must be rectangle\n"), FAIL);
+	if (!is_rectangular(game->map))
+		return ((void)ft_printf("The map must be rectangular\n"), FAIL);
 	if (!is_surrounded(game->map))
-		return ((void)ft_printf("the map must be surrounded by '1'\n"), FAIL);
+		return ((void)ft_printf("The map must be surrounded by '1's\n"), FAIL);
 	if (!is_defined_char(game->map))
-		return ((void)ft_printf("contains undefined character\n"), FAIL);
+		return ((void)ft_printf\
+	("The map must contain only the characters: P, E, C, 0 and 1.\n"), FAIL);
 	if (count_symbols(game->map, 'P') != 1)
-		return ((void)ft_printf("must contain only one 'P' character\n"), FAIL);
+		return ((void)\
+		ft_printf("The map must contain only one 'P' character.\n"), FAIL);
 	if (count_symbols(game->map, 'E') != 1)
-		return ((void)ft_printf("must contain only one 'E' character\n"), FAIL);
+		return ((void)\
+		ft_printf("The map must contain only one 'E' character.\n"), FAIL);
 	set_player_address(game);
 	if (flood_fill(game->map, game->player.row, game->player.col) != SUCCESS)
-		return ((void)ft_printf("cannot clear\n"), FAIL);
+		return ((void)ft_printf("The map cannot be cleared.\n"), FAIL);
 	clean_flood(game->map);
 	return (SUCCESS);
 }

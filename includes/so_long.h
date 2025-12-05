@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:14:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 13:05:59 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 16:40:22 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ int	is_goal(t_game *game, t_position p);
 
 /*deal_key*/
 int	deal_key(int key, t_game *game);
+
+/*validate_file*/
+int	validate_file(char *filepath);
 
 /*validate_map*/
 int	validate_map(t_game *game);
