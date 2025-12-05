@@ -6,34 +6,31 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 21:08:58 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 17:41:56 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 20:01:48 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	measure_filesize(char *filepath)
+static int	is_empty_or_cannot_open(char *filepath)
 {
-	int	fd;
-	int	buf[BUFFER_SIZE];
-	int	bytesize;
-	int	res;
+	int		fd;
+	int		res;
+	char	*buf[BUFFER_SIZE];
 
 	fd = open(filepath, O_RDONLY);
-	bytesize = 0;
-	res = 1;
-	while (res)
-	{
-		res = read(fd, buf, BUFFER_SIZE);
-		if (res == -1)
-			return (-1);
-		bytesize += res;
-	}
+	if (fd == -1)
+		return (FAILED_TO_OPEN);
+	res = read(fd, buf, BUFFER_SIZE);
 	close(fd);
-	return (bytesize);
+	if (res == 0)
+		return (EMPTY_FILE);
+	if (res == -1)
+		return (FAILED_TO_READ);
+	return (SUCCESS);
 }
 
-static int	has_continuous_newline(char *str)
+static int	has_consecutive_newline(char *str)
 {
 	int	prev_char_is_newline;
 	int	i;
@@ -71,28 +68,42 @@ int	is_valid_use_of_newline(char *filepath)
 		return (free(buf), -1);
 	close(fd);
 	buf[bytesize] = '\0';
-	if (has_continuous_newline(buf))
+	if (has_consecutive_newline(buf))
 		return (free(buf), 0);
 	return (free(buf), 1);
 }
 
 int	is_valid_filename(char *filepath)
 {
-	size_t	slen;
+	size_t	fname_len;
+	char	*last_slash_ptr;
 
-	slen = ft_strlen(filepath);
-	if (ft_strncmp(filepath + slen - 4, ".ber", 4) != 0)
+	last_slash_ptr = ft_strrchr((const char)filepath, '/');
+	if (!last_slash_ptr)
+		last_slash_ptr = filepath;
+	fname_len = ft_strlen(last_slash_ptr + 1);
+	if (ft_strncmp(last_slash_ptr + 1 + fname_len - 4, ".ber", 4) != 0)
 		return (0);
-	if (slen == 4)
+	if (fname_len == 4)
 		return (0);
 	return (1);
 }
 
 int	validate_file(char *filepath)
 {
+	int	open_res;
+
+	open_res = is_empty_or_cannot_open(filepath);
+	if (open_res == FAILED_TO_OPEN)
+		return (ft_putstr_fd("Failed to open the file.\n", 2), FAIL);
+	else if (open_res == FAILED_TO_READ)
+		return (ft_putstr_fd("Failed to read the file.\n", 2), FAIL);
+	else if (open_res == EMPTY_FILE)
+		return (ft_putstr_fd("Empty file.\n", 2), FAIL);
 	if (!is_valid_filename(filepath))
-		return (ft_putstr_fd("The file name must be in the format \
-			<filepath/filename>.ber\n", 2), FAIL);
+		return (ft_putstr_fd \
+		("The file name must be in the format <filepath/filename>.ber\n", 2), \
+		FAIL);
 	if (!is_valid_use_of_newline(filepath))
 		return (ft_putstr_fd("Unexpected newline found.\n", 2), FAIL);
 	return (SUCCESS);

@@ -6,28 +6,23 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:14:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 19:12:46 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 19:57:39 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "get_next_line.h"
-#include "ft_printf.h"
-#include "libft.h"
-#include "mlx.h"
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <X11/keysym.h>
-
-// XK_Escape
-// XK_W
-// XK_Up
-
+# include "get_next_line.h"
+# include "ft_printf.h"
+# include "libft.h"
+# include "mlx.h"
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <X11/keysym.h>
 
 # define FLOOR "imgs/cave.xpm"
 # define WALL "imgs/wall.xpm"
@@ -38,6 +33,10 @@
 
 # define SUCCESS 0
 # define FAIL 1
+
+# define FAILED_TO_OPEN -1
+# define EMPTY_FILE -2
+# define FAILED_TO_READ -3
 
 typedef struct s_imgs
 {
@@ -54,7 +53,6 @@ typedef struct s_position
 	int	col;
 }		t_position;
 
-
 typedef struct s_game
 {
 	void		*mlx;
@@ -66,7 +64,6 @@ typedef struct s_game
 	t_imgs		imgs;
 	t_position	player;
 	int			collectible_count;
-	int			end_loop;
 }			t_game;
 
 /*load_map*/
@@ -88,10 +85,11 @@ int		swap_cell(t_game *game, t_position p1, t_position p2);
 int		move_player(t_game *game, int row, int col);
 
 /*deal_key*/
-int		deal_key(int key, t_game *game);
+int		deal_keys(int key, t_game *game);
 
 /*validate_file*/
 int		validate_file(char *filepath);
+/*validate_file_utils*/
 int		measure_filesize(char *filepath);
 
 /*validate_map*/

@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   celltype.c                                         :+:      :+:    :+:   */
+/*   validate_file_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 18:31:16 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 19:19:13 by tozaki           ###   ########.fr       */
+/*   Created: 2025/12/05 19:27:58 by tozaki            #+#    #+#             */
+/*   Updated: 2025/12/05 19:28:30 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	is_cell(t_game *game, t_position p, char c)
+int	measure_filesize(char *filepath)
 {
-	if (game->map[p.row][p.col] == c)
-		return (1);
-	return (0);
-}
+	int	fd;
+	int	buf[BUFFER_SIZE];
+	int	bytesize;
+	int	res;
 
-int	is_accessible(t_game *game, t_position p)
-{
-	return (!is_cell(game, p, '1'));
-}
-
-int	is_collectible(t_game *game, t_position p)
-{
-	return (is_cell(game, p, 'C'));
-}
-
-int	is_goal(t_game *game, t_position p)
-{
-	return (is_cell(game, p, 'E'));
+	fd = open(filepath, O_RDONLY);
+	bytesize = 0;
+	res = 1;
+	while (res)
+	{
+		res = read(fd, buf, BUFFER_SIZE);
+		if (res == -1)
+			return (-1);
+		bytesize += res;
+	}
+	close(fd);
+	return (bytesize);
 }

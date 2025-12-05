@@ -6,15 +6,13 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:49:01 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 19:11:04 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 19:22:04 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	move_player(t_game *game, int row, int col);
-
-int	deal_key(int key, t_game *game)
+int	deal_keys(int key, t_game *game)
 {
 	if (key == XK_Escape)
 		mlx_loop_end(game->mlx);
@@ -36,5 +34,3 @@ int	deal_key(int key, t_game *game)
  * - 画面を描画
  * 
  */
-
-

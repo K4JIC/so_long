@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 19:00:19 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 19:01:00 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/05 19:26:01 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	validate_map(t_game *game)
 {
 	if (!is_rectangular(game->map))
-		return ((void)ft_putstr_fd("The map must be rectangular\n", 2), FAIL);
+		return ((void)ft_putstr_fd("The map must be rectangular.\n", 2), FAIL);
 	if (!is_surrounded(game->map))
-		return ((void)ft_putstr_fd("The map must be surrounded by '1's\n", 2), \
+		return ((void)ft_putstr_fd("The map must be surrounded by '1's.\n", 2), \
 		FAIL);
 	if (!is_defined_char(game->map))
 		return ((void)ft_putstr_fd \
