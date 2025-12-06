@@ -6,29 +6,11 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 21:08:58 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 20:14:52 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/06 12:37:49 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static int	is_empty_or_cannot_open(char *filepath)
-{
-	int		fd;
-	int		res;
-	char	*buf[BUFFER_SIZE];
-
-	fd = open(filepath, O_RDONLY);
-	if (fd == -1)
-		return (FAILED_TO_OPEN);
-	res = read(fd, buf, BUFFER_SIZE);
-	close(fd);
-	if (res == 0)
-		return (EMPTY_FILE);
-	if (res == -1)
-		return (FAILED_TO_READ);
-	return (SUCCESS);
-}
 
 static int	has_consecutive_newline(char *str)
 {
@@ -99,10 +81,10 @@ int	validate_file(char *filepath)
 		return (ft_putstr_fd \
 		("The file name must be in the format <filepath/filename>.ber\n", 2), \
 		FAIL);
-	open_res = is_empty_or_cannot_open(filepath);
-	if (open_res == FAILED_TO_OPEN)
+	open_res = measure_filesize(filepath);
+	if (open_res == FAIL_TO_OPEN)
 		return (ft_putstr_fd("Failed to open the file.\n", 2), FAIL);
-	else if (open_res == FAILED_TO_READ)
+	else if (open_res == FAIL_TO_READ)
 		return (ft_putstr_fd("Failed to read the file.\n", 2), FAIL);
 	else if (open_res == EMPTY_FILE)
 		return (ft_putstr_fd("Empty file.\n", 2), FAIL);

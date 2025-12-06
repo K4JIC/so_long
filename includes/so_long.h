@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:14:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 21:38:50 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/06 12:35:26 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@
 # define SUCCESS 0
 # define FAIL 1
 
-# define FAILED_TO_OPEN -1
-# define EMPTY_FILE -2
-# define FAILED_TO_READ -3
+# define FAIL_TO_OPEN -1
+# define FAIL_TO_READ -2
+# define EMPTY_FILE -3
 
 # define CROSS_BUTTON_MASK 0
 
