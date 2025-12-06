@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:14:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/06 12:35:26 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/06 12:52:07 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	free_map(char **map);
 int		draw_window(t_game *game);
 int		launch_window(t_game *game, char *filepath);
 void	set_player_address(t_game *game);
+void	set_number_of_collectible(t_game *game);
 
 /*celltype*/
 int		is_accessible(t_game *game, t_position p);
@@ -105,7 +106,7 @@ int		is_surrounded(char **map);
 int		count_symbols(char **map, char c);
 int		is_defined_char(char **map);
 /*validate_map_flood_fill*/
-int		flood_fill(char **map, int row, int col);
+int		flood_fill(t_game *game);
 void	clean_flood(char **map);
 
 /*close_window*/

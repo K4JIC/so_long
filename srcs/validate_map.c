@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 19:00:19 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 23:03:23 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/06 13:16:31 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	validate_map(t_game *game)
 		ft_putstr_fd("Must contain two or more 'C' characters.\n", 2),
 			FAIL);
 	set_player_address(game);
+	set_number_of_collectible(game);
 	if (flood_fill(game) != SUCCESS)
 		return ((void)ft_putstr_fd("The map cannot be cleared.\n", 2), FAIL);
 	clean_flood(game->map);
