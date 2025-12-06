@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 21:08:58 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/06 12:37:49 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/06 16:15:46 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,18 @@ int	is_valid_filename(char *filepath)
 
 int	validate_file(char *filepath)
 {
-	int	open_res;
+	int	filesize;
 
 	if (!is_valid_filename(filepath))
 		return (ft_putstr_fd \
 		("The file name must be in the format <filepath/filename>.ber\n", 2), \
 		FAIL);
-	open_res = measure_filesize(filepath);
-	if (open_res == FAIL_TO_OPEN)
+	filesize = measure_filesize(filepath);
+	if (filesize == FAIL_TO_OPEN)
 		return (ft_putstr_fd("Failed to open the file.\n", 2), FAIL);
-	else if (open_res == FAIL_TO_READ)
+	else if (filesize == FAIL_TO_READ)
 		return (ft_putstr_fd("Failed to read the file.\n", 2), FAIL);
-	else if (open_res == EMPTY_FILE)
+	else if (filesize == 0)
 		return (ft_putstr_fd("Empty file.\n", 2), FAIL);
 	if (!is_valid_use_of_newline(filepath))
 		return (ft_putstr_fd("Unexpected newline found.\n", 2), FAIL);

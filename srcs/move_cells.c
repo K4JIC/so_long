@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 19:10:36 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 22:09:08 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/06 16:22:51 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int	move_player(t_game *game, int row, int col)
 		return (FAIL);
 	game->player = destination;
 	game->move_count++;
-	ft_printf("Player moved %d step\n", game->move_count);
-	ft_printf("%d collectible object is left\n", game->collectible_count);
+	ft_printf("Player moved %d steps\n", game->move_count);
 	draw_window(game);
 	return (SUCCESS);
 }

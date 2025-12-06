@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:02:06 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/05 22:11:23 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/06 16:22:21 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Failed to launch window.\n", 2);
 		return (FAIL);
 	}
-	ft_printf("there is %d collectible objects\n", game.collectible_count);
 	mlx_hook(game.win, KeyPress, KeyPressMask, deal_keys, &game);
 	mlx_hook(game.win, DestroyNotify, StructureNotifyMask, deal_button, &game);
 	mlx_loop(game.mlx);
